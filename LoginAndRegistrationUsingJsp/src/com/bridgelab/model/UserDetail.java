@@ -1,5 +1,5 @@
 package com.bridgelab.model;
-
+//user information to register
 public class UserDetail {
 	private String username;
 	private String password;

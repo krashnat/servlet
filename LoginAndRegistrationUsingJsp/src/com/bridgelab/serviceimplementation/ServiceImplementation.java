@@ -12,7 +12,7 @@ import com.bridgelab.service.Services;
 public class ServiceImplementation implements Services{
 
 	UserDao access = new UserDao();
-
+     //Registration service
 	public int doRegister(HttpServletRequest request) {
 		UserDetail userdata = new UserDetail();
 		String username = (String) request.getParameter("username");
@@ -30,7 +30,7 @@ public class ServiceImplementation implements Services{
 		return status;
 		
 	}
-
+	//Loin service
 	@Override
 	public boolean doLogin(HttpServletRequest request, HttpServletResponse response) {
 		LoginModel userdata=new LoginModel();

@@ -1,4 +1,3 @@
-<%@page import="org.apache.catalina.connector.Response"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -11,15 +10,12 @@
 response.setHeader("Cache-Control","no-cashe,no-store,must-revalidate");
 
 %>
+.
 <body>
-
-	you have successfully loggeed in.
-	<a href="about.jsp"> About</a>
-	 <form action="logout1" method="post"> 
-<input type="submit" value="Logout">
-</form>
-	
-	
+	We provide quality education
+	<form action="logout1" method="post">
+		<input type="submit" value="Logout">
+	</form>
 
 
 

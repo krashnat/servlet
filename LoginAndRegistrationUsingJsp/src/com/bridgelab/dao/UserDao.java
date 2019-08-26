@@ -8,39 +8,42 @@ import java.sql.SQLException;
 
 import com.bridgelab.model.LoginModel;
 import com.bridgelab.model.UserDetail;
-
+//
 public class UserDao {
 	static Connection con = null;
+	
+	//Database Connectivity 
 	public static Connection getConnection() {
 			
-		
+		//Registering Drivers of databse
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			System.out.println("registered database");
+			//System.out.println("registered database");
 			
 		} catch (ClassNotFoundException e) {
 
 			System.out.println("Not regisrtering database");
 			
 		}
+		//connecting database
 		try {
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/information", "root", "root");
-			System.out.println("database connected");
+			//System.out.println("database connected");
 		} catch (SQLException e) {
 			
 			System.out.println("Not connecting to data base");
 		}
 		return con;
 	}
-	
+	//Method to user registration
 	public int register(UserDetail detail)
 	{
 
 		int status=0;
 		
 		con=UserDao.getConnection();
+		//storing information in the data base
 		try {
-		
 			PreparedStatement statement=con.prepareStatement("insert into student values(?,?,?,?)");
 			statement.setString(1, detail.getUsername());
 			statement.setString(2, detail.getMobno());
@@ -57,10 +60,12 @@ public class UserDao {
 		return status;
 		
 	}
+	
+	
+	
+	//User Login
 	public boolean login(LoginModel userdata)
-	{
-
-		
+	{	
 		String email=userdata.getEmail();
 		String password=userdata.getPassword();
 		Connection con;
@@ -69,7 +74,7 @@ public class UserDao {
 			PreparedStatement statement=con.prepareStatement("select name,password,email from student where email=?");
 			statement.setString(1, email);
 			ResultSet result=statement.executeQuery();
-        			
+        		
 			while(result.next())
 			{
 				String dbname=result.getString(1);
@@ -77,7 +82,7 @@ public class UserDao {
 				String dbpassword=result.getString(2);
 				System.out.println("password db"+" "+dbpassword);
 				System.out.println((password.equals(dbpassword)));
-				if(password.equals(dbpassword))
+				if(password.equals(dbpassword))      //password verification
 				{
 					System.out.println("Log in success");
 					return true;
@@ -89,6 +94,7 @@ public class UserDao {
 					System.out.println("password is wrong");
 				}
 			}
+        		
 			
 		} catch (SQLException e) {
 			

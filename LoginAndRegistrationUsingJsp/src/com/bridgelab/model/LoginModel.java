@@ -1,5 +1,5 @@
 package com.bridgelab.model;
-
+//User information for login
 public class LoginModel {
 	private String username;
 	private String password;

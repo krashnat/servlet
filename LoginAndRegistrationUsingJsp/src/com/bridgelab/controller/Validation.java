@@ -15,7 +15,7 @@ import com.bridgelab.dao.UserDao;
 import com.bridgelab.service.Services;
 import com.bridgelab.serviceimplementation.ServiceImplementation;
 
-
+//Validation Servlet
 @WebServlet("/Validation")
 public class Validation extends HttpServlet {
 	
@@ -23,30 +23,38 @@ public class Validation extends HttpServlet {
 	@SuppressWarnings("unused")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email=request.getParameter("email");
-		String useremail=request.getParameter("email");
-		System.out.println("useremail"+" "+useremail);
+	
+		System.out.println("useremail"+" "+email);
 		UserDao access=new UserDao();
-		Connection con = UserDao.getConnection();
-		String select_query="select name from student where email=?";
+		Connection con = UserDao.getConnection();//it give database connection
+		
 	try {
-		PreparedStatement statement=con.prepareStatement(select_query);
+		PreparedStatement statement=con.prepareStatement("select email from student where email=?");
 		statement.setString(1, email);
 		ResultSet result=statement.executeQuery();
-		email=result.getString("email");	
-		System.out.println("user email"+" "+email);
-		System.out.println(result);
-		if(result==null)
+		if(result.next()==true)
 		{
-			Services implement=	new ServiceImplementation();
-			int status=implement.doRegister(request);
+			 //while(result.next()) //Verification of user already registered.
+			    //{
+				//if (result.getString(1).equals(email)) {
+					
+					response.sendRedirect("Login.jsp");//Login Service to already registered user
+				//}
+		  }
+			else {
+
+				Services implement=	new ServiceImplementation();
+
+				int status=implement.doRegister(request);
+					if(status>=1)
+					{
+						response.sendRedirect("RegistationSuccess.jsp");//giving registration to new user
+					}
+			}
 		}
-		else
-		{
-			System.out.println("already present");
-		}
-    			
 		
-	}
+		
+	
 	catch(Exception E)
 	{
 		E.printStackTrace();
