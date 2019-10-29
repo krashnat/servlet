@@ -4,7 +4,8 @@ export default class UserInformation extends Component {
     render() {
         return (
             <div>
-                <span style={{ color: "#2196f3" }}>Check your Email And go for verification</span>
+              <h2> <span style={{ color: "#2196f3" }}>Check your Email for further Process</span>
+              </h2>
             </div>
         )
     }

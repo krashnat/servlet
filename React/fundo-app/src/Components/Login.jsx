@@ -69,14 +69,14 @@ export default class Login extends Component {
         controller.userLogin(loginDetails).then((res) => {
             console.log('login res---', res.data.statuscode);
             if (res.data.statuscode === 200) {
-                console.log("Values are correct");
+                
                 this.props.history.push("/dashboard")
             }
         }).catch((err) => {
             console.log("in error");
             console.log("error", err.response.data);
             // var msg = err.response.data.message
-            this.setState({ message:'the given email is not exist' })
+            this.setState({ message:'the given check your credentials' })
 
         })
         console.log('-----', this.state.message);

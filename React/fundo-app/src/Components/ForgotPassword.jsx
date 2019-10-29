@@ -36,6 +36,7 @@ export default class ForgotPassword extends Component {
         console.log(email);
         // await     
         controller.forgotPassword(email).then((res) => {
+            this.props.history.push("/inform")
             console.log(res.data);
         }).catch((err) => {
 

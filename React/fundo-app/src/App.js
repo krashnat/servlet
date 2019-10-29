@@ -7,26 +7,26 @@ import ForgotPassword from './Components/ForgotPassword';
 import Verify from './Components/Verify'
 import UpdatePassword from './Components/UpdatePassword';
 import UserInformation from './Components/UserInformation';
-import Dashboard from './Components/Dashboard';
+import DashboardPage from '../src/Pages/DashboardPage';
 
 
 class App extends Component {
   render(){
   return (
     <Router>
-    <Route path="/" exact component={Registration}></Route>
+    
       <Route path="/register" component={Registration}></Route>
-      <Route path="/login" component={Login}></Route>
+      <Route path="/" exact component={Login}></Route>
       <Route path="/forgotPassword" component={ForgotPassword}></Route>
       <Route path="/verify/:token" component={Verify}></Route>
       <Route path="/updatePassword/:token" component={UpdatePassword}></Route>
       <Route path="/inform" component={UserInformation}></Route>
-      <Route path="/dashboard" component={Dashboard}></Route>
+      <Route path="/dashboard" component={DashboardPage}></Route>
       
     </Router>
 
 
-// baseURL + `/questionAndAnswerNotes/rate/${parentId}`,data, {
+
 
 
   );

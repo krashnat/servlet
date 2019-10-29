@@ -1,7 +1,7 @@
 import axios from "axios";
-//require('dotenv').config()
-// const baseurl = process.env.REACT_APP_BASE_URL
-// console.log("url is" + baseurl);
+require('dotenv').config()
+ const baseurl = process.env.REACT_APP_BASE_URL
+ //console.log("url is" + baseurl);
 let headers = {
     'Content-Type': 'application/json'
 
@@ -14,7 +14,7 @@ var controller={
         });
     },
     userLogin(loginDetails){
-        console.log('cs login---',loginDetails);
+        console.log('cs login---',baseurl);
         return axios.post("http://localhost:8080/fundooapp/login", loginDetails, {
             headers: headers
         });
