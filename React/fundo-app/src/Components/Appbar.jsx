@@ -11,13 +11,14 @@ import ClearIcon from '@material-ui/icons/Close'
 import SearchIcon from '@material-ui/icons/Search';
 import FormatListBulletedOutlinedIcon from '@material-ui/icons/FormatListBulletedOutlined';
 import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
-import SideNav from  '../Components/SideNav';
+
+import SideNav from '../Components/SideNav';
 const theme = createMuiTheme({
     overrides: {
         MuiAppBar: {
             colorPrimary: {
                 color: "black",
-                
+
 
             },
             height: "48px",
@@ -35,15 +36,24 @@ export default class Appbar extends Component {
         }
     }
 
+
+
+
+
+
+
+
+
+
     handleDrawerOpen = async () => {
         await this.setState({ drawer: !this.state.drawer })
         //this.props.slide(this.state.drawer)
-       
+
     }
     handleClickCloseAway = () => {
         this.setState({ drawer: false })
-       
-       // this.props.slideClose(this.state.drawer)
+
+        // this.props.slideClose(this.state.drawer)
     }
 
     render() {
@@ -56,10 +66,10 @@ export default class Appbar extends Component {
 
                                 <div className="icons">
                                     <div>
-                                    < IconButton  onClick={this.handleDrawerOpen} >
-                                        <MenuIcon />
-                                    </ IconButton>
-                                    <SideNav menu={this.state.drawer} />
+                                        < IconButton onClick={this.handleDrawerOpen} >
+                                            <MenuIcon />
+                                        </ IconButton>
+                                        <SideNav menu={this.state.drawer} />
                                     </div>
                                     <div className="logo">
                                         <img width="40px" height="40px" src={require('../Assets/keep.jpg')}></img>

@@ -90,6 +90,8 @@ width: 400px;
 .dashboard {
   display: flex;
   height: auto;
+    align-items: center;
+    justify-content: center;
 }
 .appBar-tool {
   background:white; 
@@ -183,4 +185,35 @@ width: 400px;
 }
 .sideNav {
   font-size: 15px;
+}
+.noteComponent {
+  margin-top: 80px;
+  margin-left: 40px;
+}
+.note-button {
+  width: 485px;
+  height: 40px;
+  align-items: flex-start
+}
+.inputbase {
+  padding: 11px 13 7px;
+  font-size: 15px;
+}
+.buttons {
+  align-items: center;
+  display: flex;
+}
+/* iconButtons {
+  size: 2cm;
+  font-size: 1.2rem;
+} */
+.CloseButton {
+  float: right;
+  
+}
+/************** Display Card**********/
+.displayCard{
+  
+  width: 245px;
+  height: auto;
 }

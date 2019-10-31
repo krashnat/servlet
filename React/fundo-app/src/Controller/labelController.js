@@ -6,8 +6,8 @@ let headers = {
 }
 
 var controller={
-    userRegister(registrationDetails){
-        return axios.get("http://localhost:8080/label/getAllLabel?userId="+1, registrationDetails, {
+    getAllLabel(){
+        return axios.get("http://localhost:8080/label/getAllLabel?userId="+1,  {
             headers: headers
         });
     }

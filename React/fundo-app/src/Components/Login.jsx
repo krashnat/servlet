@@ -67,9 +67,10 @@ export default class Login extends Component {
         // userRegister(loginDetails).then(response => {
         //     console.log(response.data);
         controller.userLogin(loginDetails).then((res) => {
-            console.log('login res---', res.data.statuscode);
+            console.log('login res---', res.data.token);
             if (res.data.statuscode === 200) {
                 
+                localStorage.setItem('token', res.data.token); 
                 this.props.history.push("/dashboard")
             }
         }).catch((err) => {
