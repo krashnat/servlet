@@ -31,8 +31,8 @@ export default class Verify extends Component {
     render() {
         return (
             <div className="verifyPage">
-                    <h1 style={{color:"blue"}}
-                    >Click on verify Button</h1>
+                <h1 style={{ color: "blue" }}
+                >Click on verify Button</h1>
                 <Button variant="contained" color="primary" onClick={this.onSubmit} >
                     Verify
                     </Button>

@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import { Card,Link } from '@material-ui/core';
+import { Card, Link } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import controller from '../Controller/userController';
 import { IconButton, Snackbar } from '@material-ui/core';
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
+
 export default class Login extends Component {
     constructor(props) {
         super(props);
@@ -52,36 +53,36 @@ export default class Login extends Component {
                 message: 'Please provide a valid email address'
             })
         }
-        else if (this.state.password === null||this.state.password.length < 4) {
+        else if (this.state.password === null || this.state.password.length < 4) {
             this.setState({
                 Error: true,
                 message: "Password should be min 4"
             })
         }
-        else{
-        var loginDetails = {
-            "username": this.state.email,
-            "password": this.state.password
-        }
-        console.log(loginDetails);
-        // userRegister(loginDetails).then(response => {
-        //     console.log(response.data);
-        controller.userLogin(loginDetails).then((res) => {
-            console.log('login res---', res.data.token);
-            if (res.data.statuscode === 200) {
-                
-                localStorage.setItem('token', res.data.token); 
-                this.props.history.push("/dashboard")
+        else {
+            var loginDetails = {
+                "username": this.state.email,
+                "password": this.state.password
             }
-        }).catch((err) => {
-            console.log("in error");
-            console.log("error", err.response.data);
-            // var msg = err.response.data.message
-            this.setState({ message:'the given check your credentials' })
+            console.log(loginDetails);
+            // userRegister(loginDetails).then(response => {
+            //     console.log(response.data);
+            controller.userLogin(loginDetails).then((res) => {
+                console.log('login res---', res.data.token);
+                if (res.data.statuscode === 200) {
 
-        })
-        console.log('-----', this.state.message);
-    }
+                    localStorage.setItem('token', res.data.token);
+                    this.props.history.push("/dashboard")
+                }
+            }).catch((err) => {
+                console.log("in error");
+                console.log("error", err.response.data);
+                // var msg = err.response.data.message
+                this.setState({ message: 'the given check your credentials' })
+
+            })
+            console.log('-----', this.state.message);
+        }
         // })
     }
     render() {
@@ -89,7 +90,7 @@ export default class Login extends Component {
 
             <div className="registerForm">
                 <Card className="logincard">
-                <Snackbar
+                    <Snackbar
                         anchorOrigin={{
                             vertical: "bottom",
                             horizontal: "center",
@@ -101,7 +102,7 @@ export default class Login extends Component {
                         action={
                             <IconButton
                                 onClick={this.snackBarClose}>
-                                    <CloseOutlinedIcon/>
+                                <CloseOutlinedIcon />
                             </IconButton>
                         } />
                     <div className="heading">
@@ -153,7 +154,7 @@ export default class Login extends Component {
                         </Link></small>
                         </div>
                         <div className="errorMessage">
-                        <span style={{ color: "#b71c1c" }}>{this.state.message}</span>
+                            <span style={{ color: "#b71c1c" }}>{this.state.message}</span>
                         </div>
                     </div>
 

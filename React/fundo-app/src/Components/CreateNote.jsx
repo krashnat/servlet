@@ -8,7 +8,7 @@ import PaletteOutlinedIcon from '@material-ui/icons/PaletteOutlined';
 import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined';
 import Button from '@material-ui/core/Button';
 import controller from '../Controller/noteController';
-import DisplayNotes from './DisplayNotes';
+
 
 
 
@@ -98,7 +98,7 @@ export default class CreateNote extends Component {
 
     render() {
         return (
-            <div>
+            <div className="createNote-container">
                 <div className="noteComponent">
                     {!this.state.openNote ? (
                         <Card className="note-button">
@@ -188,7 +188,7 @@ export default class CreateNote extends Component {
                             </Card>
                         )}
                 </div>
-                <DisplayNotes></DisplayNotes>
+               
             </div>
         )
     }

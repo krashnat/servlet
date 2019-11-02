@@ -42,32 +42,32 @@ export default class UpdatePassword extends Component {
 
     onSubmit = () => {
 
-        let token= this.props.match.params.token;
-       // console.log(token);
-       if(this.state.newPassword === "" && this.state.confirmPassword === "") {
-             this.setState({
+        let token = this.props.match.params.token;
+        // console.log(token);
+        if (this.state.newPassword === "" && this.state.confirmPassword === "") {
+            this.setState({
                 Error: true,
                 message: "Password Field cannot be empty"
             })
         }
-    
+
         else if (this.state.newPassword !== this.state.confirmPassword) {
             this.setState({
                 Error: true,
                 message: "Passwords not matches"
             })
         }
-    
 
-       
-        else if ( this.state.newPassword.length < 4 && this.state.confirmPassword.length < 4 ) {
+
+
+        else if (this.state.newPassword.length < 4 && this.state.confirmPassword.length < 4) {
             this.setState({
                 Error: true,
                 message: "Password should be min 4"
             })
         }
-    
-        
+
+
 
         else {
             var passwordDetails = {
@@ -75,16 +75,16 @@ export default class UpdatePassword extends Component {
                 "confirmPassword": this.state.confirmPassword
             }
             console.log(passwordDetails);
-            controller.updatePassword(passwordDetails,token).then((res) => {
+            controller.updatePassword(passwordDetails, token).then((res) => {
                 console.log(res.data);
                 this.props.history.push("/login")
             }).catch((err) => {
-                 console.log("in eror");
+                console.log("in eror");
                 console.log("error", err.response)
                 // var msg = err.response.data.message
-                
-                this.setState({ message:'something went wrong' })
-    
+
+                this.setState({ message: 'something went wrong' })
+
             });
         }
     }

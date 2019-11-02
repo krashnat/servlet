@@ -30,7 +30,7 @@ export default class Appbar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            drawer: false,
+            drawer: true,
             drawerClose: false
 
         }
@@ -143,4 +143,3 @@ export default class Appbar extends Component {
         )
     }
 }
-

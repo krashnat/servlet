@@ -8,6 +8,7 @@ import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import controller from '../Controller/labelController';
 import LabelOutlinedIcon from '@material-ui/icons/LabelOutlined';
+import { withRouter } from 'react-router-dom'
 
 
 
@@ -32,16 +33,23 @@ const themes = createMuiTheme({
     }
 })
 
-export default class SideNav extends Component {
+class SideNav extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            open: false,
+            open: true,
             close: false,
             colorChange: false,
             labelsList: [],
         }
+    }
+
+
+    renderNote = () => {
+
+        this.props.history.push("/note")
+
     }
 
     componentDidMount() {
@@ -80,7 +88,7 @@ export default class SideNav extends Component {
                 <MuiThemeProvider theme={themes}>
                     <Drawer variant='persistent' overflow='auto' open={this.props.menu} >
                         <div className="firstBtn" >
-                            <MenuItem className="btn" style={{ borderBottomRightRadius: "50px 50px", borderTopRightRadius: "50px 50px" }}>
+                            <MenuItem className="btn" style={{ borderBottomRightRadius: "50px 50px", borderTopRightRadius: "50px 50px" }} onClick={this.renderNote}>
                                 <EmojiObjectsOutlinedIcon />
                                 <span className="sideNav" >Notes</span>
                             </MenuItem>
@@ -115,7 +123,7 @@ export default class SideNav extends Component {
     }
 }
 
-
+export default withRouter(SideNav);
 
 
 
