@@ -19,6 +19,45 @@ var controller={
         return axios.get("http://localhost:8080/note/fetchNote",  {
             headers: headers
         });
-    }
+    },
+    updateNote(noteDetails){
+        console.log(noteDetails)
+        return axios.put("http://localhost:8080/note/update/", noteDetails, {
+            headers: headers
+        });
+    },
+    deleteNote(id) {
+        //console.log('note id',id)
+        return axios.delete("http://localhost:8080/note/delete/"+id,  {
+            headers: headers
+        });
+
+    },
+    archiveNote(id) {
+        //console.log('note id',id)
+        return axios.post("http://localhost:8080/note/archieve/"+id,null,  {
+            headers: headers
+        });
+
+    },
+    deleteNotePermenently(id) {
+        console.log('note id',id)
+        return axios.delete("http://localhost:8080/note/deletenote/"+id,  {
+            headers: headers
+        });
+
+    },
+
+    getTrasheNotes(){
+        return axios.get("http://localhost:8080/note/fetchTrashedNote",  {
+            headers: headers
+        });
+    },
+    getArchiveNotes(){
+        return axios.get("http://localhost:8080/note/fetcharchivenote",  {
+            headers: headers
+        });
+    },
+  
 }
 export default controller;

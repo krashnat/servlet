@@ -9,6 +9,12 @@ import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined'
 import controller from '../Controller/labelController';
 import LabelOutlinedIcon from '@material-ui/icons/LabelOutlined';
 import { withRouter } from 'react-router-dom'
+import Dialog from '@material-ui/core/Dialog';
+import Card from '@material-ui/core/Card';
+import CloseIcon from '@material-ui/icons/Close';
+import { InputBase,TextField } from '@material-ui/core';
+import DoneIcon from '@material-ui/icons/Done';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 
 
@@ -22,6 +28,11 @@ const themes = createMuiTheme({
                 height: "90%",
                 background: 'white',
                 overflowY: 'hidden'
+            },
+            MuiSvgIcon: {
+                root: {
+                    fontSize: "1.2rem"
+                }
             },
             paperAnchorDockedLeft: {
                 borderColor: "white",
@@ -41,14 +52,33 @@ class SideNav extends Component {
             open: true,
             close: false,
             colorChange: false,
+            openDialog: false,
             labelsList: [],
+            labels: [],
         }
     }
 
-
+    dialogOpen = (listOflabels) => {
+       
+        this.setState({
+            labels:listOflabels,
+            openDialog: !this.state.openDialog,
+        })
+    }
     renderNote = () => {
 
         this.props.history.push("/note")
+
+    }
+    renderTrashedNote = () => {
+
+        this.props.history.push("/trashed")
+
+    }
+
+    renderArchiveNote = () => {
+
+        this.props.history.push("/archive")
 
     }
 
@@ -83,6 +113,36 @@ class SideNav extends Component {
             )
         })
 
+        let getAllLabels = this.state.labels.map((key) => {
+            return(
+            <div className="labelCard" key={key.labelId}>
+              
+                <div className="tekeLabelCard" key={key.labelId}>
+
+                    <div role="button">
+                        <MuiThemeProvider theme={themes}>
+                            <DeleteIcon />
+                        </MuiThemeProvider>
+                    </div>
+
+
+                    <div className="labelInput">
+                    <TextField
+                            type="text"
+                            className="inputField"
+                            placeholder="Take Label"
+                            value={key.name}
+                        />
+                    </div>
+
+                    <div role="button">
+                        <DoneIcon />
+                    </div>
+                </div>
+            </div>
+
+        )})
+
         return (
             <div className="drawer">
                 <MuiThemeProvider theme={themes}>
@@ -100,18 +160,47 @@ class SideNav extends Component {
                         <Divider />
                         <div className="labelTag">LABELS</div>
                         <div>{getAllLabel}</div>
-                        <MenuItem className="btn" style={{ borderBottomRightRadius: "50px 50px", borderTopRightRadius: "50px 50px" }}>
+                        <MenuItem className="btn" style={{ borderBottomRightRadius: "50px 50px", borderTopRightRadius: "50px 50px" }} onClick={() => { this.dialogOpen(this.state.labelsList) }}>
                             <CreateOutlinedIcon />
                             <span className="sideNav" >Edit Labels</span>
                         </MenuItem>
+                        <Dialog open={this.state.openDialog} >
+                            <Card className="label-dialog">
+                                <div className="labelCard">
+                                    <div className="labelText">Edit Labels</div>
+                                    <div className="tekeLabelCard">
+
+                                        <div role="button">
+                                            <MuiThemeProvider theme={themes}>
+                                                <CloseIcon />
+                                            </MuiThemeProvider>
+                                        </div>
+
+
+                                        <div className="labelInput">
+                                            <InputBase
+                                            type="text"
+                                                className="inputField"
+                                                placeholder="Take Label"
+                                            />
+                                        </div>
+
+                                        <div role="button">
+                                            <DoneIcon />
+                                        </div>
+                                    </div>
+                                </div>
+                                {getAllLabels}
+                            </Card>
+                        </Dialog>
                         <div className="firstBtn">
                             <Divider />
                         </div>
-                        <MenuItem className="btn" style={{ borderBottomRightRadius: "50px 50px", borderTopRightRadius: "50px 50px" }}>
+                        <MenuItem className="btn" style={{ borderBottomRightRadius: "50px 50px", borderTopRightRadius: "50px 50px" }} onClick={this.renderArchiveNote}>
                             <ArchiveOutlinedIcon />
                             <span className="sideNav" >Archive</span>
                         </MenuItem>
-                        <MenuItem className="btn" style={{ borderBottomRightRadius: "50px 50px", borderTopRightRadius: "50px 50px" }}>
+                        <MenuItem className="btn" style={{ borderBottomRightRadius: "50px 50px", borderTopRightRadius: "50px 50px" }} onClick={this.renderTrashedNote}>
                             <DeleteOutlineOutlinedIcon />
                             <span className="sideNav" >Trash</span>
                         </MenuItem>

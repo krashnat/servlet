@@ -8,6 +8,9 @@ import Verify from './Components/Verify'
 import UpdatePassword from './Components/UpdatePassword';
 import UserInformation from './Components/UserInformation';
 import DashboardPage from '../src/Pages/DashboardPage';
+import TrashedNotes from './Pages/TrashedNotesPage';
+import ArchiveNotesPage from './Pages/ArchiveNotesPage';
+
 
 
 class App extends Component {
@@ -24,6 +27,8 @@ class App extends Component {
         <Route path="/inform" component={UserInformation}></Route>
         <Route path="/dashboard" component={DashboardPage}></Route>
         <Route path="/note" component={DashboardPage}></Route>
+        <Route path="/trashed" component={TrashedNotes}></Route>
+        <Route path="/archive" component={ArchiveNotesPage}></Route>
 
       </Router>
 
