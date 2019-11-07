@@ -3,7 +3,7 @@ import Card from '@material-ui/core/Card';
 import controller from '../Controller/noteController';
 import { MuiThemeProvider, createMuiTheme, Tooltip } from '@material-ui/core';
 import AddAlertIcon from '@material-ui/icons/AddAlert';
-import { InputBase, TextField } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import PaletteOutlinedIcon from '@material-ui/icons/PaletteOutlined';
@@ -13,9 +13,12 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
+// import labelcontroller from '../Controller/labelController';
+//  import Popper from '@material-ui/core/Poppe';
+import Chip from '@material-ui/core/Chip';
+import Label from './Label';
+
 
 
 const theme = createMuiTheme({
@@ -24,19 +27,24 @@ const theme = createMuiTheme({
             padding: "12px 8px 7px"
 
         },
-        // MuiBackdrop: {
-        //     backgroundcolor: "none"
-        // },
         MuiBackdrop: {
-            root: {
-                backgroundColor: "none"
-            }
+            backgroundcolor: "none"
         },
+
         MuiSvgIcon: {
             root: {
                 fontSize: "1.2rem"
             }
         },
+        root: {
+            display: "flex",
+            justifyContent: "center",
+            flexWrap: "wrap"
+        },
+        chip: {
+            // margin: createMuiTheme.spacing.unit
+        },
+
         MuiPaper: {
             rounded: {
                 borderRadius: "11px"
@@ -57,25 +65,30 @@ export default class DisplayNotes extends Component {
             close: false,
             colorChange: false,
             notesList: [],
-            anchorEl: '',
+            anchorEl: null,
+            //anchorEll: null,
             deleteId: '',
             id: '',
             title: '',
             description: '',
             openDialog: false,
+            labels: [],
+            poperOpen: false,
         }
     }
 
 
-    
+
     handleClose = () => {
         this.setState({ anchorEl: null });
+
+
     };
 
     handleClick = event => {
         this.setState({ anchorEl: event.currentTarget });
     };
-    
+
     handleDialogueOpen = () => {
         this.setState({
             setOpen: true
@@ -83,9 +96,9 @@ export default class DisplayNotes extends Component {
     }
 
     DialogHandleClose = event => {
-       
+
         var noteDetails = {
-            "id":this.state.id,
+            "id": this.state.id,
             "title": this.state.title,
             "description": this.state.description
         }
@@ -101,13 +114,17 @@ export default class DisplayNotes extends Component {
             this.setState({ message: 'failed to load the data' })
         });
         //console.log(noteDetails)
-       
+
     };
+
+    handleLabelDelete() {
+        alert("You clicked the Chip.");
+    }
 
     handleTitleChange = (event) => {
         this.setState({
             title: event.target.value
-        
+
         })
         // console.log(this.state.title)
     }
@@ -117,7 +134,7 @@ export default class DisplayNotes extends Component {
         })
         // console.log(this.state.description)
     }
-     
+
     handleNoteId = async (id) => {
         //console.log("Note id-->", id);
         await this.setState({
@@ -152,12 +169,23 @@ export default class DisplayNotes extends Component {
     }
 
 
-    addLabel = () => {
-        this.setState({ anchorEl: null });
-    };
+    // addLabel = (e) => {
+    //     this.setState({ anchorEl: null });
+    //     labelcontroller.getAllLabel().then((res) => {
+    //         this.setState({
+    //             labels: res.data.obj,
+    //            anchorEll:this.state.anchorEll?false:e.target ,
+    //             poperOpen: !this.state.poperOpen,
+    //         })
+    //         console.log(this.state.labels)
+    //     }).catch((err) => {
+    //         console.log("error", err.response.data);
+    //     })
+    // };
 
     componentDidMount() {
         this.getNotes();
+
 
     }
 
@@ -183,7 +211,7 @@ export default class DisplayNotes extends Component {
         controller.archiveNote(id).then((res) => {
 
             console.log(res.data)
-             this.getNotes()
+            this.getNotes()
 
         }).catch((err) => {
             console.log("in error");
@@ -194,7 +222,7 @@ export default class DisplayNotes extends Component {
     }
 
 
-   
+
 
     render() {
 
@@ -215,6 +243,27 @@ export default class DisplayNotes extends Component {
                                     {note.description}
                                 </div>
                             </div>
+                            <div className="labelsinnote">
+                                {note.list.map((labels) => {
+                                    return (
+                                        <div key={labels.labelId}> {labels === '' ? null :
+                                            <Chip label={labels.name} variant="outlined"
+                                                onDelete={this.handleLabelDelete}
+
+                                            />
+                                        }
+
+                                        </div>
+                                    )
+
+                                })}
+
+
+
+
+
+                            </div>
+
 
                             <MuiThemeProvider theme={theme}>
 
@@ -250,7 +299,7 @@ export default class DisplayNotes extends Component {
                                     <div>
                                         <Tooltip title="Archive">
                                             <IconButton aria-label="colour" onClick={() => this.archive(note.id)}>
-                                                <ArchiveOutlinedIcon  />
+                                                <ArchiveOutlinedIcon />
                                             </IconButton>
                                         </Tooltip>
                                     </div>
@@ -272,7 +321,8 @@ export default class DisplayNotes extends Component {
                                             onClose={this.handleClose}
                                         >
                                             <MenuItem onClick={() => this.handleDelete()}>Delete</MenuItem>
-                                            <MenuItem onClick={this.addLabel}>Add Label</MenuItem>
+                                            {/* <MenuItem onClick={(e)=>this.addLabel(e)}>Add Label</MenuItem> */}
+                                            <Label noteId={this.state.deleteId} ></Label>
                                         </Menu>
 
                                     </div>
@@ -355,10 +405,18 @@ export default class DisplayNotes extends Component {
 
                         </Dialog>
                     </MuiThemeProvider>
+                    {/* <Popper open={this.state.anchorEll} anchorEll={this.state.anchorEll}>
+
+                        <Paper>
+                            <h3>this is paper</h3>
+                        </Paper>
+                    </Popper> */}
 
                 </div>
             )
         })
+
+
         return (
             <div className="get-cards">
                 {getAllNotes}

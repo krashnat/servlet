@@ -12,7 +12,7 @@ import { withRouter } from 'react-router-dom'
 import Dialog from '@material-ui/core/Dialog';
 import Card from '@material-ui/core/Card';
 import CloseIcon from '@material-ui/icons/Close';
-import { InputBase,TextField } from '@material-ui/core';
+import { InputBase, TextField } from '@material-ui/core';
 import DoneIcon from '@material-ui/icons/Done';
 import DeleteIcon from '@material-ui/icons/Delete';
 
@@ -55,13 +55,16 @@ class SideNav extends Component {
             openDialog: false,
             labelsList: [],
             labels: [],
+            label: '',
+            labelName:'',
+            id:''
         }
     }
 
     dialogOpen = (listOflabels) => {
-       
+
         this.setState({
-            labels:listOflabels,
+            labels: listOflabels,
             openDialog: !this.state.openDialog,
         })
     }
@@ -89,8 +92,9 @@ class SideNav extends Component {
 
     getLabels = () => {
         controller.getAllLabel().then((res) => {
+            console.log("labels are",res.data.obj)
             this.setState({
-
+                    
                 labelsList: res.data.obj
 
             })
@@ -104,6 +108,64 @@ class SideNav extends Component {
         })
     }
 
+
+    onChangeLabel = (event) => {
+        var label = event.target.value;
+        this.setState({
+            label: label
+        })
+
+    }
+
+    onSubmit = () => {
+        if (this.state.label === '') {
+            this.setState({ openDialog: !this.state.openDialog });
+        }
+        else {
+            var labelDetails = {
+                "name": this.state.label
+
+            }
+            controller.createLabel(labelDetails).then((res) => {
+
+                console.log(res.data);
+                this.setState({ openDialog: !this.state.openDialog });
+
+
+            }).catch((err) => {
+                console.log("in error");
+                console.log("error", err);
+                this.setState({ message: 'failed to load the data' })
+            })
+
+        }
+
+    }
+    handleEditLabel=(id,name)=>{
+        console.log("in handleEditLabel",id,name)
+    }
+    onDelete = (id) => {
+        console.log("label id to delete" + id)
+        
+        var labelDetails = {
+            "labelId": id
+
+        }
+        // controller.deletLabel(labelDetails)
+        controller.deletLabel(labelDetails).then((res) => {
+
+            console.log('deleted',res);
+            
+
+
+        }).catch((err) => {
+            console.log("in error");
+            console.log("error", err);
+            this.setState({ message: 'failed to load the data' })
+        })
+
+    }
+
     render() {
 
         let getAllLabel = this.state.labelsList.map((key) => {
@@ -114,34 +176,47 @@ class SideNav extends Component {
         })
 
         let getAllLabels = this.state.labels.map((key) => {
-            return(
-            <div className="labelCard" key={key.labelId}>
-              
-                <div className="tekeLabelCard" key={key.labelId}>
+            console.log("in getAllLabel",key)
+            return (
+                <div className="labelCard" key={key.labelId}>
+                    <div className="tekeLabelCard" >
+                        <div role="button"  >
+                            <MuiThemeProvider theme={themes}>
+                                <DeleteIcon onClick={()=>{this.onDelete(key.labelId)}} />
+                            </MuiThemeProvider>
+                        </div>
 
-                    <div role="button">
-                        <MuiThemeProvider theme={themes}>
-                            <DeleteIcon />
-                        </MuiThemeProvider>
-                    </div>
 
-
-                    <div className="labelInput">
-                    <TextField
-                            type="text"
-                            className="inputField"
-                            placeholder="Take Label"
-                            value={key.name}
-                        />
-                    </div>
-
-                    <div role="button">
-                        <DoneIcon />
+                        <div className="labelInput">
+                            <TextField
+                                type="text"
+                                className="inputField"
+                                placeholder="Take Label"
+                                value={key.name}
+                                onChange={()=>{this.handleEditLabel(key.labelId,key.name)}}
+                                
+                            />
+                        </div>
+{/*                             
+                        <div className="labelInput">
+                            <TextField
+                                type="text"
+                                className="inputField"
+                                placeholder="Take Label"
+                                value={this.state.labelState}
+                                onChange={this.handleEditLabels}
+                                
+                            />
+                        </div> */}
+                          
+                        <div role="button">
+                            <DoneIcon />
+                        </div>
                     </div>
                 </div>
-            </div>
 
-        )})
+            )
+        })
 
         return (
             <div className="drawer">
@@ -179,13 +254,15 @@ class SideNav extends Component {
 
                                         <div className="labelInput">
                                             <InputBase
-                                            type="text"
+                                                type="text"
                                                 className="inputField"
                                                 placeholder="Take Label"
+                                                value={this.state.label}
+                                                onChange={this.onChangeLabel}
                                             />
                                         </div>
 
-                                        <div role="button">
+                                        <div role="button" onClick={this.onSubmit}>
                                             <DoneIcon />
                                         </div>
                                     </div>
