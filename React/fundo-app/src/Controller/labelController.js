@@ -28,6 +28,12 @@ var controller={
         return axios.post("http://localhost:8080/label/addlabel?labelId="+labelDetail+"&noteId="+noteid,null,{
             headers: headers
         })
+    },
+    removeLabel(labelDetail,noteid) {
+
+        return axios.post("http://localhost:8080/label/removelabel?labelId="+labelDetail+"&noteId="+noteid,null,{
+            headers: headers
+        })
     }
 }
 export default controller;

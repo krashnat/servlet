@@ -57,7 +57,8 @@ class SideNav extends Component {
             labels: [],
             label: '',
             labelName:'',
-            id:''
+            id:'',
+            appTitle:''
         }
     }
 
@@ -144,6 +145,14 @@ class SideNav extends Component {
     handleEditLabel=(id,name)=>{
         console.log("in handleEditLabel",id,name)
     }
+
+    handleLabels=async(labelName,labelId)=>{
+        console.log("in lallaallalalallala",labelName,labelId)
+        await this.setState({
+            appTitle: labelName
+        })
+        //this.props.history.push(`/labels/${labelName}`,this.state.appTitle)
+    }
     onDelete = (id) => {
         console.log("label id to delete" + id)
         
@@ -170,7 +179,7 @@ class SideNav extends Component {
 
         let getAllLabel = this.state.labelsList.map((key) => {
             return (
-                <MenuItem className="btn" style={{ borderBottomRightRadius: "50px 50px", borderTopRightRadius: "50px 50px" }} key={key.labelId}  >
+                <MenuItem className="btn" style={{ borderBottomRightRadius: "50px 50px", borderTopRightRadius: "50px 50px" }} key={key.labelId}  onClick={()=>this.handleLabels(key.name,key.labelId)} >
                     <LabelOutlinedIcon style={{ paddingRight: "48px" }} />{key.name}</MenuItem>
             )
         })

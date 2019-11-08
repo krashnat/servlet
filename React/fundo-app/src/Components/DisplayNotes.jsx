@@ -14,7 +14,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import CardContent from '@material-ui/core/CardContent';
-// import labelcontroller from '../Controller/labelController';
+ import labelcontroller from '../Controller/labelController';
 //  import Popper from '@material-ui/core/Poppe';
 import Chip from '@material-ui/core/Chip';
 import Label from './Label';
@@ -117,8 +117,17 @@ export default class DisplayNotes extends Component {
 
     };
 
-    handleLabelDelete() {
-        alert("You clicked the Chip.");
+    handleLabelDelete(labelId,noteId) {
+       console.log("label remove",labelId,noteId)
+       labelcontroller.removeLabel(labelId,noteId).then((res) => {
+           console.log(res.obj)
+           this.getNotes();
+       }).catch((err) => {
+        console.log("in error");
+        console.log("error", err.data);
+        this.setState({ message: 'failed to load the data' })
+    });
+       
     }
 
     handleTitleChange = (event) => {
@@ -248,7 +257,7 @@ export default class DisplayNotes extends Component {
                                     return (
                                         <div key={labels.labelId}> {labels === '' ? null :
                                             <Chip label={labels.name} variant="outlined"
-                                                onDelete={this.handleLabelDelete}
+                                                onDelete={() => {this.handleLabelDelete(labels.labelId,note.id)}}
 
                                             />
                                         }

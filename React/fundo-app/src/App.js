@@ -29,6 +29,7 @@ class App extends Component {
         <Route path="/note" component={DashboardPage}></Route>
         <Route path="/trashed" component={TrashedNotes}></Route>
         <Route path="/archive" component={ArchiveNotesPage}></Route>
+        {/* <Route path="/labelnotes/:labelForNote" component={Label} ></Route> */}
 
       </Router>
 
