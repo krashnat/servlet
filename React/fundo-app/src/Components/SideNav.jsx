@@ -23,7 +23,7 @@ const themes = createMuiTheme({
     overrides: {
         MuiDrawer: {
             paperAnchorLeft: {
-                width: 250,
+                width: 280,
                 top: 65,
                 height: "90%",
                 background: 'white',
@@ -147,11 +147,12 @@ class SideNav extends Component {
     }
 
     handleLabels=async(labelName,labelId)=>{
-        console.log("in lallaallalalallala",labelName,labelId)
+        console.log("label is ",labelName,labelId)
         await this.setState({
             appTitle: labelName
         })
         //this.props.history.push(`/labels/${labelName}`,this.state.appTitle)
+        this.props.history.push('/notelabels/' + labelId)
     }
     onDelete = (id) => {
         console.log("label id to delete" + id)
@@ -185,7 +186,7 @@ class SideNav extends Component {
         })
 
         let getAllLabels = this.state.labels.map((key) => {
-            console.log("in getAllLabel",key)
+            // console.log("in getAllLabel",key)
             return (
                 <div className="labelCard" key={key.labelId}>
                     <div className="tekeLabelCard" >

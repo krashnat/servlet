@@ -15,9 +15,11 @@ import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import CardContent from '@material-ui/core/CardContent';
  import labelcontroller from '../Controller/labelController';
+ import ColourChange from '../Components/ColourChange';
 //  import Popper from '@material-ui/core/Poppe';
 import Chip from '@material-ui/core/Chip';
 import Label from './Label';
+import { withRouter } from 'react-router-dom'
 
 
 
@@ -55,7 +57,7 @@ const theme = createMuiTheme({
     }
 })
 
-export default class DisplayNotes extends Component {
+ class DisplayNotes extends Component {
 
 
     constructor(props) {
@@ -178,24 +180,8 @@ export default class DisplayNotes extends Component {
     }
 
 
-    // addLabel = (e) => {
-    //     this.setState({ anchorEl: null });
-    //     labelcontroller.getAllLabel().then((res) => {
-    //         this.setState({
-    //             labels: res.data.obj,
-    //            anchorEll:this.state.anchorEll?false:e.target ,
-    //             poperOpen: !this.state.poperOpen,
-    //         })
-    //         console.log(this.state.labels)
-    //     }).catch((err) => {
-    //         console.log("error", err.response.data);
-    //     })
-    // };
-
     componentDidMount() {
         this.getNotes();
-
-
     }
 
     getNotes = () => {
@@ -231,7 +217,14 @@ export default class DisplayNotes extends Component {
     }
 
 
-
+    handleLabels=async(labelName,labelId)=>{
+        console.log("label is ",labelName,labelId)
+        await this.setState({
+           
+        })
+        //this.props.history.push(`/labels/${labelName}`,this.state.appTitle)
+        this.props.history.push('/notelabels/' + labelId)
+    }
 
     render() {
 
@@ -243,7 +236,10 @@ export default class DisplayNotes extends Component {
                 <div key={note.id} >
                     <MuiThemeProvider theme={theme} >
 
-                        <Card className="display-card"   >
+                        <Card className="display-card"  style={{ backgroundColor: note.colour,
+                           transform: (!this.props.menu) ? "translate(80px,0)" : null,
+                           transition: (this.props.menu) ? ("0.3s") : ("0.3s") }} 
+                     >
                             <div onClick={() => { this.handleClickTakeNote(note) }}>
                                 <div className="notecardtittle">
                                     {note.title}
@@ -256,7 +252,7 @@ export default class DisplayNotes extends Component {
                                 {note.list.map((labels) => {
                                     return (
                                         <div key={labels.labelId}> {labels === '' ? null :
-                                            <Chip label={labels.name} variant="outlined"
+                                            <Chip label={labels.name} variant="outlined" onClick={()=>this.handleLabels(labels.name,labels.labelId)}
                                                 onDelete={() => {this.handleLabelDelete(labels.labelId,note.id)}}
 
                                             />
@@ -266,11 +262,6 @@ export default class DisplayNotes extends Component {
                                     )
 
                                 })}
-
-
-
-
-
                             </div>
 
 
@@ -299,11 +290,9 @@ export default class DisplayNotes extends Component {
                                         </Tooltip>
                                     </div>
                                     <div>
-                                        <Tooltip title="colour">
-                                            <IconButton aria-label="colour">
-                                                <PaletteOutlinedIcon />
-                                            </IconButton>
-                                        </Tooltip>
+                                        
+                                      <ColourChange note={note} />
+                                       
                                     </div>
                                     <div>
                                         <Tooltip title="Archive">
@@ -433,3 +422,4 @@ export default class DisplayNotes extends Component {
         )
     }
 }
+export default withRouter(DisplayNotes);

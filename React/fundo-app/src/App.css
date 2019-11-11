@@ -244,8 +244,8 @@ width: 400px;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  width: 50%;
-  height: 100vh;
+  width: 43%;
+  height: 92vh;
 }
 .dashboard-displayNotes{
   width:100%;
@@ -328,5 +328,17 @@ width: 400px;
 }
 .labelsinnote{
   display: flex;
+  flex-wrap: wrap;
+}
+.color-map {
+  width: 30px;
+  height: 30px;
+  margin: 5px;
+}
+.color-styles {
+  width: 160px;
+  height: auto;
+  display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
 }

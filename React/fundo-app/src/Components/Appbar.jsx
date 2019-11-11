@@ -47,7 +47,7 @@ export default class Appbar extends Component {
 
     handleDrawerOpen = async () => {
         await this.setState({ drawer: !this.state.drawer })
-        //this.props.slide(this.state.drawer)
+        this.props.slide(this.state.drawer)
 
     }
     handleClickCloseAway = () => {

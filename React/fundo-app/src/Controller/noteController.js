@@ -58,6 +58,19 @@ var controller={
             headers: headers
         });
     },
+    getNotefromLabel() {
+        return axios.get("http://localhost:8080/label/getLabelNotes",  {
+            headers: headers
+        });
+    },
+    addColour(colour,data) {
+        console.log(colour)
+        console.log(data.id)
+        return axios.post("http://localhost:8080/note/addColour?noteId="+data.id+"&colour="+colour,null, {
+            headers: headers
+        });
+
+    }
   
 }
 export default controller;

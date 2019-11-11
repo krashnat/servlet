@@ -10,6 +10,7 @@ import UserInformation from './Components/UserInformation';
 import DashboardPage from '../src/Pages/DashboardPage';
 import TrashedNotes from './Pages/TrashedNotesPage';
 import ArchiveNotesPage from './Pages/ArchiveNotesPage';
+import NotesLabelsDisplay from './Pages/NotesLabelsDisplay';
 
 
 
@@ -29,7 +30,7 @@ class App extends Component {
         <Route path="/note" component={DashboardPage}></Route>
         <Route path="/trashed" component={TrashedNotes}></Route>
         <Route path="/archive" component={ArchiveNotesPage}></Route>
-        {/* <Route path="/labelnotes/:labelForNote" component={Label} ></Route> */}
+        <Route path="/notelabels/:labelName" component={NotesLabelsDisplay} ></Route> 
 
       </Router>
 
