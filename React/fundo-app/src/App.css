@@ -232,13 +232,13 @@ width: 400px;
   padding-left: 12px;
   padding-right: 12px;
 }
-.display-card{
+/* .displaycard{
   width: auto;
     max-width: 275px;
     height: auto;
     min-height: 110px;
     border-radius: 20px;
-}
+} */
 .get-cards{
   display: flex;
   align-items: center;
@@ -341,4 +341,18 @@ width: 400px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+}
+
+.list-view{
+  margin: 20px;
+  width: 500px;
+  height: auto;
+  /* margin-left:80px;  */
+}
+.view-card{
+  width: auto;
+  max-width: 275px;
+  height: auto;
+  min-height: 110px;
+  border-radius: 20px;
 }

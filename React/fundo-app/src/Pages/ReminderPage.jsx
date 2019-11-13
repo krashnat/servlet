@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import App from '../Components/Appbar'
 import CreateNote from '../Components/CreateNote'
-import DisplayNotes from '../Components/DisplayNotes';
 
-export default class DashboardPage extends Component {
+import ReminderNotes from '../Components/ReminderNotes';
+
+export default class ReminderPage extends Component {
     constructor(props){
         super(props);
         this.state={
@@ -30,7 +31,7 @@ export default class DashboardPage extends Component {
                 <div className="create-display">
                     <CreateNote></CreateNote>
                     <div className="dashboard-displayNotes">
-                        <DisplayNotes menu={this.state.open} viewprop={this.state.view}></DisplayNotes>
+                        <ReminderNotes menu={this.state.open} viewprop={this.state.view}></ReminderNotes>
                     </div>
                 </div>
 
@@ -38,3 +39,5 @@ export default class DashboardPage extends Component {
         )
     }
 }
+
+

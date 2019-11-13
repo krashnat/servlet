@@ -58,8 +58,34 @@ class SideNav extends Component {
             label: '',
             labelName:'',
             id:'',
-            appTitle:''
+            appTitle:'',
+            input:false,
         }
+    }
+
+    handleDoneLables = async () => {
+        var data = {
+            "labelName": this.state.labelName,
+            "labelId": this.state.id
+        }
+        await this.setState({
+            input: false,
+            mouse: false,
+            trueIcon: false,
+        })
+        console.log("Response after hitting updatenoteslabel", data);
+      
+        controller.updateLabel(data).then((res) => {
+
+            console.log(res.data);
+            //this.setState({ openDialog: !this.state.openDialog });
+
+
+        }).catch((err) => {
+            console.log("in error");
+            console.log("error", err);
+            this.setState({ message: 'failed to load the data' })
+        })
     }
 
     dialogOpen = (listOflabels) => {
@@ -72,6 +98,11 @@ class SideNav extends Component {
     renderNote = () => {
 
         this.props.history.push("/note")
+
+    }
+    renderReminderNote = () => {
+
+        this.props.history.push("/reminders")
 
     }
     renderTrashedNote = () => {
@@ -144,6 +175,13 @@ class SideNav extends Component {
     }
     handleEditLabel=(id,name)=>{
         console.log("in handleEditLabel",id,name)
+        this.setState({
+
+            labelName:name,
+            id:id,
+            input:true,
+        })
+     
     }
 
     handleLabels=async(labelName,labelId)=>{
@@ -175,6 +213,12 @@ class SideNav extends Component {
         })
 
     }
+    handleLabelChange = async (e) => {
+        await this.setState({
+            labelName: e.target.value
+        })
+        
+    }
 
     render() {
 
@@ -196,6 +240,15 @@ class SideNav extends Component {
                             </MuiThemeProvider>
                         </div>
 
+                        {this.state.input && key.labelId === this.state.id ?
+                         <div className="labelInput">
+                      <TextField
+                            id="title"
+                            value={this.state.labelName}
+                            onChange={this.handleLabelChange}
+                        />
+                        </div>
+                         :
 
                         <div className="labelInput">
                             <TextField
@@ -207,6 +260,7 @@ class SideNav extends Component {
                                 
                             />
                         </div>
+                         } 
 {/*                             
                         <div className="labelInput">
                             <TextField
@@ -220,7 +274,7 @@ class SideNav extends Component {
                         </div> */}
                           
                         <div role="button">
-                            <DoneIcon />
+                            <DoneIcon  onClick={this.handleDoneLables}/>
                         </div>
                     </div>
                 </div>
@@ -237,7 +291,7 @@ class SideNav extends Component {
                                 <EmojiObjectsOutlinedIcon />
                                 <span className="sideNav" >Notes</span>
                             </MenuItem>
-                            <MenuItem className="btn" style={{ borderBottomRightRadius: "50px 50px", borderTopRightRadius: "50px 50px" }}>
+                            <MenuItem className="btn" style={{ borderBottomRightRadius: "50px 50px", borderTopRightRadius: "50px 50px" }} onClick={this. renderReminderNote}>
                                 <AddAlertOutlinedIcon />
                                 <span className="sideNav" >Reminders</span>
                             </MenuItem>
@@ -273,7 +327,7 @@ class SideNav extends Component {
                                         </div>
 
                                         <div role="button" onClick={this.onSubmit}>
-                                            <DoneIcon />
+                                            <DoneIcon  />
                                         </div>
                                     </div>
                                 </div>

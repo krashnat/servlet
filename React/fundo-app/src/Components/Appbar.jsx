@@ -9,8 +9,9 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import MenuIcon from '@material-ui/icons/Menu';
 import ClearIcon from '@material-ui/icons/Close'
 import SearchIcon from '@material-ui/icons/Search';
-import FormatListBulletedOutlinedIcon from '@material-ui/icons/FormatListBulletedOutlined';
 import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
+import ViewAgendaIcon from '@material-ui/icons/ViewAgenda';
+import ViewColumnIcon from '@material-ui/icons/ViewColumn';
 
 import SideNav from '../Components/SideNav';
 const theme = createMuiTheme({
@@ -18,10 +19,10 @@ const theme = createMuiTheme({
         MuiAppBar: {
             colorPrimary: {
                 color: "black",
-
+                view: true,
 
             },
-           // height: "48px",
+            // height: "48px",
         },
     }
 })
@@ -35,12 +36,24 @@ export default class Appbar extends Component {
 
         }
     }
+  
+
+    handleRefresh = ()=>{
+        window.location.reload(); 
+      }
 
 
 
 
 
-
+    handleView = () => {
+        this.setState({
+            view: !this.state.view
+        })
+        this.props.viewprop(true)
+        console.log(this.state.view)
+        
+    }
 
 
 
@@ -100,13 +113,14 @@ export default class Appbar extends Component {
                                 </div>
                                 <div className="middleOne">
                                     <div className="refreshIcon">
-                                        <IconButton >
+                                        <IconButton onClick={this.handleRefresh}>
                                             <RefreshIcon />
                                         </IconButton>
                                     </div>
                                     <div>
-                                        <IconButton >
-                                            < FormatListBulletedOutlinedIcon />
+
+                                        <IconButton  onClick={this.handleView}>
+                                            {this.state.view ? <ViewAgendaIcon /> : <ViewColumnIcon />}
                                         </IconButton>
 
                                     </div>

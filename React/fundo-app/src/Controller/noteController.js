@@ -70,6 +70,11 @@ var controller={
             headers: headers
         });
 
+    },
+    addReminder(data) {
+        return axios.post("http://localhost:8080/note/addreminder?noteId="+data.noteId,data, {
+            headers: headers
+        });
     }
   
 }

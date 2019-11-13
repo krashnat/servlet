@@ -24,7 +24,6 @@ import Reminder from './Reminder';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 
 
-
 const theme = createMuiTheme({
     overrides: {
         MuiInputBase: {
@@ -59,8 +58,7 @@ const theme = createMuiTheme({
     }
 })
 
- class DisplayNotes extends Component {
-
+export default class ReminderNotes extends Component {
 
     constructor(props) {
         super(props);
@@ -81,8 +79,6 @@ const theme = createMuiTheme({
             reminder:'',
         }
     }
-
-
 
     handleClose = () => {
         this.setState({ anchorEl: null });
@@ -183,9 +179,11 @@ const theme = createMuiTheme({
     }
 
 
+
     componentDidMount() {
         this.getNotes();
     }
+
 
     getNotes = () => {
         controller.getNotes().then((res) => {
@@ -203,7 +201,6 @@ const theme = createMuiTheme({
             this.setState({ message: 'failed to load the data' })
         })
     }
-
     archive = (id) => {
         console.log(" in archive", id)
         controller.archiveNote(id).then((res) => {
@@ -228,7 +225,7 @@ const theme = createMuiTheme({
         //this.props.history.push(`/labels/${labelName}`,this.state.appTitle)
         this.props.history.push('/notelabels/' + labelId)
     }
-
+    
     render() {
 
         const { anchorEl } = this.state;
@@ -236,7 +233,7 @@ const theme = createMuiTheme({
         let getAllNotes = this.state.notesList.map((note) => {
             //console.log("noteid is----->", note.id);
             return (
-                // ( note === null || note.reminder === null)? '' :
+                ( note === null || note.reminder === null)? '' :
                 <div key={note.id} >
                     <MuiThemeProvider theme={theme} >
 
@@ -376,7 +373,13 @@ const theme = createMuiTheme({
                                             </IconButton>
                                         </Tooltip>
                                     </div>
-                                  
+                                    <div>
+                                        <Tooltip title="collaborator">
+                                            <IconButton aria-label="collaborator">
+                                                <PersonAddIcon />
+                                            </IconButton>
+                                        </Tooltip>
+                                    </div>
                                     <div>
                                         <Tooltip title="colour">
                                             <IconButton aria-label="colour">
@@ -412,8 +415,6 @@ const theme = createMuiTheme({
                 </div>
             )
         })
-
-
         return (
             <div className="get-cards">
                 {getAllNotes}
@@ -421,4 +422,3 @@ const theme = createMuiTheme({
         )
     }
 }
-export default withRouter(DisplayNotes);

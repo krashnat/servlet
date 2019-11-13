@@ -11,6 +11,7 @@ import DashboardPage from '../src/Pages/DashboardPage';
 import TrashedNotes from './Pages/TrashedNotesPage';
 import ArchiveNotesPage from './Pages/ArchiveNotesPage';
 import NotesLabelsDisplay from './Pages/NotesLabelsDisplay';
+import ReminderPage from './Pages/ReminderPage';
 
 
 
@@ -31,6 +32,7 @@ class App extends Component {
         <Route path="/trashed" component={TrashedNotes}></Route>
         <Route path="/archive" component={ArchiveNotesPage}></Route>
         <Route path="/notelabels/:labelName" component={NotesLabelsDisplay} ></Route> 
+        <Route path="/reminders" component={ReminderPage} ></Route> 
 
       </Router>
 

@@ -17,6 +17,12 @@ var controller={
             headers: headers
         });
     },
+    updateLabel(labelInformation){
+        console.log(labelInformation)
+        return axios.put("http://localhost:8080/label/update",labelInformation,{
+            headers: headers
+        });
+    },
     deletLabel(labelDetails){
         console.log('11111111---',labelDetails)
          return axios.post("http://localhost:8080/label/delete",labelDetails,{
