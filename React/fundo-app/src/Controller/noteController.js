@@ -75,6 +75,13 @@ var controller={
         return axios.post("http://localhost:8080/note/addreminder?noteId="+data.noteId,data, {
             headers: headers
         });
+    },
+    addCollaborator(noteId,collaborator) {
+        console.log(noteId)
+        console.log(collaborator.email)
+        // return axios.post("http://localhost:8080/collaborator/addCollab?noteId="+noteId+"&email="+collaborator.email,null, {
+        //     headers: headers
+        // });
     }
   
 }

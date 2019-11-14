@@ -22,6 +22,7 @@ import Label from './Label';
 import { withRouter } from 'react-router-dom'
 import Reminder from './Reminder';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import Collaborator from '../Components/Collaborator';
 
 
 
@@ -134,6 +135,16 @@ const theme = createMuiTheme({
     });
        
     }
+
+    handleCollabDelete(name,id) {
+        console.log(name)
+        console.log(id)
+    }
+
+
+
+
+
 
     handleTitleChange = (event) => {
         this.setState({
@@ -267,6 +278,21 @@ const theme = createMuiTheme({
 
                                 })}
                             </div>
+                            <div className="labelsinnote">
+                                {note.CollabList.map((collaborator) => {
+                                    return (
+                                        <div key={collaborator.id}> {collaborator === '' ? null :
+                                          <Chip label={collaborator.email} variant="outlined" 
+                                                onDelete={() => {this.handleCollabDelete(collaborator.id,note.id)}}
+
+                                            />  
+                                        }
+
+                                        </div>
+                                    )
+
+                                })}
+                            </div>
 
                             <div className="labelsinnote">
                                         {(note.reminder === undefined || note.reminder >= 0) ? null : <Chip 
@@ -278,28 +304,20 @@ const theme = createMuiTheme({
                             <MuiThemeProvider theme={theme}>
 
                                 <div className="buttons">
-                                    <div>
+                                    <div className="botombuttons">
                                         <Reminder noteId={note.id} />                                    </div>
+                                   
                                     <div>
-                                        <Tooltip title="collaborator">
-                                            <IconButton aria-label="reminder">
-                                                <PersonAddIcon />
-                                            </IconButton>
-                                        </Tooltip>
+                                       
+                                        <Collaborator noteId={note.id}></Collaborator>
+                                        
                                     </div>
-                                    <div>
-                                        <Tooltip title="collaborator">
-                                            <IconButton aria-label="collaborator">
-                                                <PersonAddIcon />
-                                            </IconButton>
-                                        </Tooltip>
-                                    </div>
-                                    <div>
+                                    <div className="botombuttons">
                                         
                                       <ColourChange note={note} />
                                        
-                                    </div>
-                                    <div>
+                                    </div >
+                                    <div >
                                         <Tooltip title="Archive">
                                             <IconButton aria-label="colour" onClick={() => this.archive(note.id)}>
                                                 <ArchiveOutlinedIcon />
@@ -371,9 +389,7 @@ const theme = createMuiTheme({
                                     </div>
                                     <div>
                                         <Tooltip title="collaborator">
-                                            <IconButton aria-label="reminder">
-                                                <PersonAddIcon />
-                                            </IconButton>
+                                            <Collaborator></Collaborator>
                                         </Tooltip>
                                     </div>
                                   

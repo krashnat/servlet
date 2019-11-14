@@ -12,8 +12,10 @@ import SearchIcon from '@material-ui/icons/Search';
 import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
 import ViewAgendaIcon from '@material-ui/icons/ViewAgenda';
 import ViewColumnIcon from '@material-ui/icons/ViewColumn';
+import Logout from '../Components/Logout';
 
 import SideNav from '../Components/SideNav';
+
 const theme = createMuiTheme({
     overrides: {
         MuiAppBar: {
@@ -36,11 +38,11 @@ export default class Appbar extends Component {
 
         }
     }
-  
 
-    handleRefresh = ()=>{
-        window.location.reload(); 
-      }
+
+    handleRefresh = () => {
+        window.location.reload();
+    }
 
 
 
@@ -52,7 +54,7 @@ export default class Appbar extends Component {
         })
         this.props.viewprop(true)
         console.log(this.state.view)
-        
+
     }
 
 
@@ -119,7 +121,7 @@ export default class Appbar extends Component {
                                     </div>
                                     <div>
 
-                                        <IconButton  onClick={this.handleView}>
+                                        <IconButton onClick={this.handleView}>
                                             {this.state.view ? <ViewAgendaIcon /> : <ViewColumnIcon />}
                                         </IconButton>
 
@@ -136,13 +138,7 @@ export default class Appbar extends Component {
                                             <AppsIcon />
                                         </IconButton>
                                     </div>
-
-                                    <div>
-                                        <IconButton >
-                                            <AccountCircleIcon />
-                                        </IconButton>
-
-                                    </div>
+                                    <Logout></Logout>
                                 </div>
 
 

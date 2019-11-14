@@ -356,3 +356,29 @@ width: 400px;
   min-height: 110px;
   border-radius: 20px;
 }
+.logoutCard{
+  height: 110px;
+}
+.logout{
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  
+}
+.logoutButton{
+  margin-top: 11px;
+}
+.botombuttons{
+height: 18px;
+    margin: 0 8px;
+    width: 18px;
+}
+.spotlabel{
+  display: flex;
+  align-items: center;
+}
+
+.savebutton{
+  margin-right: 11px
+}

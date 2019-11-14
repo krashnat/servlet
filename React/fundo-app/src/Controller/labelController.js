@@ -17,6 +17,13 @@ var controller={
             headers: headers
         });
     },
+    createLabelAndMap(labelInformation,noteId){
+        console.log(labelInformation)
+        console.log(noteId)
+        return axios.post("http://localhost:8080/label/createandmap?noteId="+noteId,labelInformation,{
+            headers: headers
+        });
+    },
     updateLabel(labelInformation){
         console.log(labelInformation)
         return axios.put("http://localhost:8080/label/update",labelInformation,{

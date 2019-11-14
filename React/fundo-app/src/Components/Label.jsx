@@ -5,6 +5,7 @@ import labelcontroller from '../Controller/labelController';
 import { InputBase, TextField } from '@material-ui/core';
 import Checkbox from '@material-ui/core/Checkbox';
 import controller from '../Controller/labelController';
+import DoneIcon from '@material-ui/icons/Done';
 
 // import MenuItem from '@material-ui/core/MenuItem';
 // import { Card } from '@material-ui/core';
@@ -21,10 +22,11 @@ export default class Label extends Component {
             setAnchorEl: false,
             labels: [],
             ids: [],
-            noteid:'',
+            noteid: '',
+            label: ''
 
         }
-        
+
     }
     handleClick = (e) => {
         labelcontroller.getAllLabel().then((res) => {
@@ -48,11 +50,48 @@ export default class Label extends Component {
         });
     }
 
+    onChangeLabel = (event) => {
+        var label = event.target.value;
+        this.setState({
+            label: label
+        })
+    
+    }
 
-    handleChange=(id) =>{
-        console.log('label id',id)
-        console.log('hello',this.props.noteId)
-        controller.addLabel(id,this.props.noteId).then((res) => {
+    onSubmit = () => {
+        // if (this.state.label === '') {
+        //     this.setState({ openDialog: !this.state.openDialog });
+        // }
+       
+            var labelDetails = {
+                "name": this.state.label
+
+            }
+            controller.createLabelAndMap(labelDetails,this.props.noteId).then((res) => {
+
+                console.log(res.data);
+                this.setState({
+                    label: ''
+                })
+            
+                // this.setState({ openDialog: !this.state.openDialog });
+
+
+            }).catch((err) => {
+                console.log("in error");
+                console.log("error", err);
+                this.setState({ message: 'failed to load the data' })
+            })
+
+        
+
+    }
+
+
+    handleChange = (id) => {
+        console.log('label id', id)
+        console.log('hello', this.props.noteId)
+        controller.addLabel(id, this.props.noteId).then((res) => {
             console.log(res.data)
         }).catch((err) => {
             console.log("in error");
@@ -62,8 +101,8 @@ export default class Label extends Component {
 
     }
     render() {
-                                           
-        
+
+
 
         let getAllLabels = this.state.labels.map((label) => {
             return (
@@ -73,7 +112,7 @@ export default class Label extends Component {
                         <div>
                             <Checkbox color="default" value="checked"
                                 checked={this.state.checked}
-                               onChange={() => this.handleChange(label.labelId)} 
+                                onChange={() => this.handleChange(label.labelId)}
                             />
                         </div>
                         <div className="labelInput">
@@ -112,15 +151,20 @@ export default class Label extends Component {
 
 
                     <div className="labelNote">Label note</div>
+                    <div className="spotlabel">
+                        <div className="labelInput">
+                            <InputBase
+                                type="text"
+                                className="inputField"
+                                placeholder="Enter Label Name"
+                                value={this.state.label}
+                                onChange={this.onChangeLabel}
+                            />
+                        </div>
 
-                    <div className="labelInput">
-                        <InputBase
-                            type="text"
-                            className="inputField"
-                            placeholder="Enter Label Name"
-                            value={this.state.label}
-                            onChange={this.onChangeLabel}
-                        />
+                        <div role="button" onClick={this.onSubmit} className="savebutton">
+                            <DoneIcon />
+                        </div>
                     </div>
                     {getAllLabels}
                     <Button aria-controls="simple-menu" aria-haspopup="true" onClick={(e) => this.handleClose(e)}>
