@@ -68,7 +68,7 @@ export default class Label extends Component {
 
             }
             controller.createLabelAndMap(labelDetails,this.props.noteId).then((res) => {
-
+                this.props.status(true)
                 console.log(res.data);
                 this.setState({
                     label: ''
@@ -91,8 +91,9 @@ export default class Label extends Component {
     handleChange = (id) => {
         console.log('label id', id)
         console.log('hello', this.props.noteId)
-        controller.addLabel(id, this.props.noteId).then((res) => {
+        controller.addLabel(id, this.props.noteId).then((res) => { 
             console.log(res.data)
+            this.props.status(true)
         }).catch((err) => {
             console.log("in error");
             console.log("error", err.data);
@@ -125,7 +126,7 @@ export default class Label extends Component {
                             />
                         </div>
                         <div>
-
+                     
                         </div>
 
                     </div>

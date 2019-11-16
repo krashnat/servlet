@@ -33,6 +33,13 @@ var controller={
         });
 
     },
+    pin(id) {
+        console.log('controller',id)
+        return axios.post("http://localhost:8080/note/pin/"+id,null,  {
+            headers: headers
+        });
+
+    },
     archiveNote(id) {
         //console.log('note id',id)
         return axios.post("http://localhost:8080/note/archieve/"+id,null,  {
@@ -79,9 +86,22 @@ var controller={
     addCollaborator(noteId,collaborator) {
         console.log(noteId)
         console.log(collaborator.email)
-        // return axios.post("http://localhost:8080/collaborator/addCollab?noteId="+noteId+"&email="+collaborator.email,null, {
-        //     headers: headers
-        // });
+        return axios.post("http://localhost:8080/collaborator/addCollab?noteId="+noteId+"&email="+collaborator.email,null, {
+            headers: headers
+        });
+    },
+    removeCollaborator(noteId,collaborator) {
+        console.log(noteId)
+        console.log(collaborator)
+        return axios.delete("http://localhost:8080/collaborator/removeCollab?noteId="+noteId+"&email="+collaborator, {
+            headers: headers
+        });
+    },
+    search(title) {
+        console.log("controller",title);
+        return axios.get("http://localhost:8080/note/search?title="+title, {
+            headers: headers
+        });
     }
   
 }

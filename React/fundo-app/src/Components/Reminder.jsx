@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Tooltip, ClickAwayListener } from '@material-ui/core';
+import {  ClickAwayListener } from '@material-ui/core';
 import { DateTimePicker } from 'material-ui-pickers';
 import Popper from '@material-ui/core/Popper';
 import 'date-fns';
@@ -50,6 +50,7 @@ export default class Reminder extends Component {
         console.log(data)
         controller.addReminder(data).then((res) =>{
              console.log(res.data) 
+             this.props.reminderStatus(true)
         }).catch((err) => {
             console.log("in error");
             console.log("error", err.data);
@@ -64,6 +65,7 @@ export default class Reminder extends Component {
         })
     }
     render() {
+        
         return (
             <div>
                 <div >

@@ -160,6 +160,8 @@ class SideNav extends Component {
             }
             controller.createLabel(labelDetails).then((res) => {
 
+
+                this.getLabels();
                 console.log(res.data);
                 this.setState({ openDialog: !this.state.openDialog });
 
@@ -201,9 +203,9 @@ class SideNav extends Component {
         }
         // controller.deletLabel(labelDetails)
         controller.deletLabel(labelDetails).then((res) => {
-
+           
             console.log('deleted',res);
-            
+            this.getLabels();
 
 
         }).catch((err) => {
@@ -229,7 +231,7 @@ class SideNav extends Component {
             )
         })
 
-        let getAllLabels = this.state.labels.map((key) => {
+        let getAllLabels = this.state.labelsList.map((key) => {
             // console.log("in getAllLabel",key)
             return (
                 <div className="labelCard" key={key.labelId}>
@@ -291,7 +293,7 @@ class SideNav extends Component {
                                 <EmojiObjectsOutlinedIcon />
                                 <span className="sideNav" >Notes</span>
                             </MenuItem>
-                            <MenuItem className="btn" style={{ borderBottomRightRadius: "50px 50px", borderTopRightRadius: "50px 50px" }} onClick={this. renderReminderNote}>
+                            <MenuItem className="btn" style={{ borderBottomRightRadius: "50px 50px", borderTopRightRadius: "50px 50px" }} onClick={this.renderReminderNote}>
                                 <AddAlertOutlinedIcon />
                                 <span className="sideNav" >Reminders</span>
                             </MenuItem>

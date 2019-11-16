@@ -1,19 +1,18 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom';
+
 import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
-import { ClickAwayListener } from '@material-ui/core';
 
 import Button from '@material-ui/core/Button';
-import { InputBase, Card, Tooltip, TextField, Snackbar, IconButton } from '@material-ui/core';
+import { InputBase,  Tooltip } from '@material-ui/core';
 
 import DoneOutlinedIcon from '@material-ui/icons/DoneOutlined';
-import Chip from '@material-ui/core/Chip';
 
-import ClearOutlinedIcon from '@material-ui/icons/ClearOutlined';
+
+
 import Controller from '../Controller/noteController';
 
 export default class Collaborator extends Component {
@@ -96,9 +95,7 @@ export default class Collaborator extends Component {
             }
            
            // console.log(colabBody)
-            Controller.addCollaborator(this.props.noteId,colabBody)
-        
-            .then((res) => {
+            Controller.addCollaborator(this.props.noteId,colabBody).then((res) => {
                 this.setState({
 
                     emailId:'',

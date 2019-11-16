@@ -12,6 +12,7 @@ import TrashedNotes from './Pages/TrashedNotesPage';
 import ArchiveNotesPage from './Pages/ArchiveNotesPage';
 import NotesLabelsDisplay from './Pages/NotesLabelsDisplay';
 import ReminderPage from './Pages/ReminderPage';
+import SearchPage from './Pages/SearchPage';
 
 
 
@@ -33,6 +34,7 @@ class App extends Component {
         <Route path="/archive" component={ArchiveNotesPage}></Route>
         <Route path="/notelabels/:labelName" component={NotesLabelsDisplay} ></Route> 
         <Route path="/reminders" component={ReminderPage} ></Route> 
+        <Route path="/search" component={SearchPage} ></Route> 
 
       </Router>
 

@@ -29,9 +29,6 @@ import EditLocationIcon from '@material-ui/icons/EditLocation';
 
 
 
-
-
-
 const theme = createMuiTheme({
     overrides: {
         MuiInputBase: {
@@ -65,9 +62,7 @@ const theme = createMuiTheme({
 
     }
 })
-
-class DisplayNotes extends Component {
-
+export default class SearchedNotes extends Component {
 
     constructor(props) {
         super(props);
@@ -85,217 +80,16 @@ class DisplayNotes extends Component {
             openDialog: false,
             labels: [],
             poperOpen: false,
-            reminder: '',
+            reminder:'',
         }
     }
-
-
-
-    handleClose = () => {
-        this.setState({ anchorEl: null });
-
-
-    };
-
-    handleClick = event => {
-        this.setState({ anchorEl: event.currentTarget });
-    };
-
-    handleDialogueOpen = () => {
-        this.setState({
-            setOpen: true
-        })
-    }
-
-    DialogHandleClose = event => {
-
-        var noteDetails = {
-            "id": this.state.id,
-            "title": this.state.title,
-            "description": this.state.description
-        }
-        this.setState({ openDialog: !this.state.openDialog });
-        controller.updateNote(noteDetails).then((res) => {
-
-            console.log(res.data)
-            this.getNotes()
-
-        }).catch((err) => {
-            console.log("in error");
-            console.log("error", err.data);
-            this.setState({ message: 'failed to load the data' })
-        });
-        //console.log(noteDetails)
-
-    };
-
-    handleLabelDelete(labelId, noteId) {
-        console.log("label remove", labelId, noteId)
-        labelcontroller.removeLabel(labelId, noteId).then((res) => {
-            console.log(res.obj)
-            this.getNotes();
-        }).catch((err) => {
-            console.log("in error");
-            console.log("error", err.data);
-            this.setState({ message: 'failed to load the data' })
-        });
-
-    }
-
-    handleCollabDelete(name, id) {
         
-        // console.log(name)
-        // console.log(id)
-        controller.removeCollaborator(name,id)
-        .then((res) => {
-            console.log(res.obj)
-            this.getNotes();
-        }).catch((err) => {
-            console.log("in error");
-            console.log("error", err.data);
-            this.setState({ message: 'failed to load the data' })
-        });
-    }
-
-
-
-
-
-
-    handleTitleChange = (event) => {
-        this.setState({
-            title: event.target.value
-
-        })
-        // console.log(this.state.title)
-    }
-    handleDescription = (event) => {
-        this.setState({
-            description: event.target.value
-        })
-        // console.log(this.state.description)
-    }
-
-    handleNoteId = async (id) => {
-        //console.log("Note id-->", id);
-        await this.setState({
-            deleteId: id
-        })
-    }
-
-    handleDelete = async () => {
-        controller.deleteNote(this.state.deleteId).then((res) => {
-
-            console.log(res.data)
-            this.getNotes()
-
-        }).catch((err) => {
-            console.log("in error");
-            console.log("error", err.data);
-            this.setState({ message: 'failed to load the data' })
-        });
-        await this.setState({
-            anchorEl: null
-        })
-    };
-
-    handleClickTakeNote = (note) => {
-        console.log(note)
-        this.setState({
-            id: note.id,
-            title: note.title,
-            description: note.description,
-            openDialog: !this.state.openDialog,
-        })
-    }
-
-    handlePinIcon=(key) => {
-        console.log(key)
-        controller.pin(key).then((res) => {
-
-            console.log(res.data)
-            this.getNotes()
-
-        }).catch((err) => {
-            console.log("in error");
-            console.log("error", err.data);
-            this.setState({ message: 'failed to load the data' })
-        });
-    }
-
-
-    componentDidMount() {
-        this.getNotes();
-    }
-
-    getNotes = () => {
-        controller.getNotes()
-            .then((res) => {
-                console.log('22222', res.data.obj)
-                this.setState({
-                    notesList:res.data.obj
-                });
-
-                console.log('111111', this.state.notesList);
-            }).catch((err) => {
-                // console.log("in error");
-                console.log("error", err.data);
-                this.setState({ message: 'failed to load the data' })
-            })
-    }
-
-    archive = (id) => {
-        console.log(" in archive", id)
-        controller.archiveNote(id).then((res) => {
-
-            console.log(res.data)
-            this.getNotes()
-
-        }).catch((err) => {
-            console.log("in error");
-            console.log("error", err.data);
-            this.setState({ message: 'failed to load the data' })
-        });
-
-    }
-
-
-    handleLabels = async (labelName, labelId) => {
-        console.log("label is ", labelName, labelId)
-        await this.setState({
-
-        })
-        //this.props.history.push(`/labels/${labelName}`,this.state.appTitle)
-        this.props.history.push('/notelabels/' + labelId)
-    }
-
-    handleProps=(status) => {
-        if(status){
-            console.log(status);
-            this.getNotes();
-        }
-    }
-
-    handleColourStatus=(colourStatus) =>{
-        if(colourStatus){
-            console.log(colourStatus);
-            this.getNotes();
-        }
-    }
-
-    handleReminderStatus=(status) => {
-        if(status){
-            console.log(status);
-            this.getNotes();
-        }
-
-    }
-
     render() {
-
+        if(this.props.notes !==null){
+     console.log("in searched notes",this.props.notes)
         const { anchorEl } = this.state;
         const displaycard = this.props.viewprop ? "view-card" : "list-view"
-        let getAllNotes = this.state.notesList.map((note) => {
+        let getAllNotes = this.props.notes.map((note) => {
             //console.log("noteid is----->", note.id);
             return (
                 // ( note === null || note.reminder === null)? '' :
@@ -318,7 +112,7 @@ class DisplayNotes extends Component {
                                     {note.description}
                                 </div>
                             </div>
-                            <div className="labelsinnote">
+                            {/* <div className="labelsinnote">
                                 {note.list.map((labels) => {
                                     return (
                                         <div key={labels.labelId}> {labels === '' ? null :
@@ -332,9 +126,9 @@ class DisplayNotes extends Component {
                                     )
 
                                 })}
-                            </div>
+                            </div> */}
                             <div className="labelsinnote">
-                                {note.colabUser.map((collaborator) => {
+                                {/* {note.colabUser.map((collaborator) => {
                                     return (
                                         <div key={collaborator.id}> {collaborator.email === '' ? null :
                                             <Chip label={collaborator.email} variant="outlined"
@@ -346,7 +140,7 @@ class DisplayNotes extends Component {
                                         </div>
                                     )
 
-                                })}
+                                })} */}
                             </div>
 
                             <div className="labelsinnote">
@@ -360,7 +154,7 @@ class DisplayNotes extends Component {
 
                                 <div className="buttons">
                                     <div className="botombuttons">
-                                        <Reminder noteId={note.id}  reminderStatus={this.handleReminderStatus}/>                                    </div>
+                                        <Reminder noteId={note.id} />                                    </div>
 
                                     <div className="botombuttons">
 
@@ -369,7 +163,7 @@ class DisplayNotes extends Component {
                                     </div>
                                     <div className="botombuttons">
 
-                                        <ColourChange note={note}  colourStatus={this.handleColourStatus} />
+                                        <ColourChange note={note} />
 
                                     </div >
                                     <div >
@@ -398,7 +192,7 @@ class DisplayNotes extends Component {
                                         >
                                             <MenuItem onClick={() => this.handleDelete()}>Delete</MenuItem>
                                             {/* <MenuItem onClick={(e)=>this.addLabel(e)}>Add Label</MenuItem> */}
-                                            <Label noteId={this.state.deleteId}  status={this.handleProps} ></Label>
+                                            <Label noteId={this.state.deleteId} ></Label>
                                         </Menu>
 
                                     </div>
@@ -492,4 +286,4 @@ class DisplayNotes extends Component {
         )
     }
 }
-export default withRouter(DisplayNotes);
+}

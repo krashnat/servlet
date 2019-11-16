@@ -19,7 +19,7 @@ import CardContent from '@material-ui/core/CardContent';
 //  import Popper from '@material-ui/core/Poppe';
 import Chip from '@material-ui/core/Chip';
 import Label from './Label';
-import { withRouter } from 'react-router-dom'
+// import { withRouter } from 'react-router-dom'
 import Reminder from './Reminder';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 

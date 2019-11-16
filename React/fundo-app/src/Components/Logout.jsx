@@ -9,14 +9,14 @@ import { withRouter } from 'react-router-dom'
 import Card from '@material-ui/core/Card';
 
 
-const styles = theme => ({
-    typography: {
-        margin: theme.spacing.unit * 2,
-    },
-    button: {
-        margin: theme.spacing.unit,
-      },
-});
+// const styles = theme => ({
+//     typography: {
+//         margin: theme.spacing.unit * 2,
+//     },
+//     button: {
+//         margin: theme.spacing.unit,
+//       },
+// });
 
  class Logout extends Component {
 

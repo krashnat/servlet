@@ -5,7 +5,7 @@ import InputBase from '@material-ui/core/InputBase';
 import { MuiThemeProvider, createMuiTheme, IconButton } from '@material-ui/core';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import AppsIcon from '@material-ui/icons/Apps';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+// import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import MenuIcon from '@material-ui/icons/Menu';
 import ClearIcon from '@material-ui/icons/Close'
 import SearchIcon from '@material-ui/icons/Search';
@@ -13,8 +13,9 @@ import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
 import ViewAgendaIcon from '@material-ui/icons/ViewAgenda';
 import ViewColumnIcon from '@material-ui/icons/ViewColumn';
 import Logout from '../Components/Logout';
-
+import { withRouter } from 'react-router-dom'
 import SideNav from '../Components/SideNav';
+import controller from '../Controller/noteController';
 
 const theme = createMuiTheme({
     overrides: {
@@ -28,13 +29,15 @@ const theme = createMuiTheme({
         },
     }
 })
-export default class Appbar extends Component {
+class Appbar extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             drawer: true,
-            drawerClose: false
+            drawerClose: false,
+            searchedTitle: '',
+            searchedNotes: []
 
         }
     }
@@ -71,6 +74,34 @@ export default class Appbar extends Component {
         // this.props.slideClose(this.state.drawer)
     }
 
+
+    handleSearch = () => {
+        this.props.history.push("/search")
+    }
+
+
+
+    handleSeachState = async (e) => {
+        // await this.setState({
+        //     searchedTitle: e.target.value 
+        // })
+        //console.log(e.target.value)
+        controller.search(e.target.value).then((res) => {
+            console.log(res.data);
+            this.setState({
+                searchedNotes: res.data.obj
+            });
+            this.props.appToDisplay(this.state.searchedNotes)
+        }).catch((err) => {
+            console.log("in error");
+            console.log("error", err.data);
+            this.setState({ message: 'failed to load the data' })
+        });
+
+
+    }
+
+
     render() {
         return (
             <MuiThemeProvider theme={theme}>
@@ -101,9 +132,9 @@ export default class Appbar extends Component {
                                         <InputBase
                                             className="inputField"
                                             placeholder="Search....."
-                                        //value={this.state.search}
-                                        // onChange={this.handleSearch}
-                                        // onClick={this.handleSeachState}
+                                            //value={this.state.search}
+                                            onClick={this.handleSearch}
+                                            onChange={this.handleSeachState}
 
                                         />
                                     </div>
@@ -153,3 +184,4 @@ export default class Appbar extends Component {
         )
     }
 }
+export default withRouter(Appbar);

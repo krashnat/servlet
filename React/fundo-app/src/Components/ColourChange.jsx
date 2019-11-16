@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Tooltip, IconButton, Popper, Paper, ClickAwayListener } from '@material-ui/core'
+import { Tooltip, IconButton, Popper, Paper,  } from '@material-ui/core'
 import ColorLensOutlinedIcon from '@material-ui/icons/ColorLensOutlined';
 import controller from '../Controller/noteController';
 
@@ -56,7 +56,7 @@ export default class ColourChange extends Component {
          controller.addColour(colour.target.value,this.state.note)
          .then(res=>{
             console.log(res.data);
-          
+            this.props.colourStatus(true)
             
         }).catch(err=>{
             console.log("Error after hitting login api  ",err);
@@ -71,7 +71,7 @@ export default class ColourChange extends Component {
        
         const colorChange = colorPalette.map((key) => {
             return (
-                <div className="color-map">
+                <div  key={key.colorCode} className="color-map">
                     <Tooltip title={key.name}>
                         <IconButton style={{ backgroundColor: key.colorCode, border: "silver 2px solid" }}
                             value={key.name}
