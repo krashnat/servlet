@@ -39,6 +39,7 @@ export default class CreateNote extends Component {
             openNote: false,
             title: '',
             description: '',
+            craeteNote: false,
         }
     }
 
@@ -84,9 +85,10 @@ export default class CreateNote extends Component {
                 console.log(res.data)
                 this.setState({
                     title:'',
-                    description:''
+                    description:'',
+                    craeteNote : true
                 })
-
+ this.props.response(this.state.craeteNote)
             }).catch((err) => {
                 console.log("in error");
                 console.log("error", err.response.data);

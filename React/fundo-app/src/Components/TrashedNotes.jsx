@@ -161,13 +161,7 @@ export default class TrashedNotes extends Component {
                                                     </IconButton>
                                                 </Tooltip>
                                             </div>
-                                            <div>
-                                                <Tooltip title="collaborator">
-                                                    <IconButton aria-label="collaborator">
-                                                        <PersonAddIcon />
-                                                    </IconButton>
-                                                </Tooltip>
-                                            </div>
+                                          
                                             <div>
                                                 <Tooltip title="colour">
                                                     <IconButton aria-label="colour">

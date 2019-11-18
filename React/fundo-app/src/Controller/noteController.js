@@ -83,6 +83,12 @@ var controller={
             headers: headers
         });
     },
+    removeReminder(noteId) {
+        console.log(noteId);
+        // return axios.post("http://localhost:8080/note/removereminder?noteId="+noteId,null, {
+        //     headers: headers
+        // });
+    },
     addCollaborator(noteId,collaborator) {
         console.log(noteId)
         console.log(collaborator.email)
@@ -90,9 +96,9 @@ var controller={
             headers: headers
         });
     },
-    removeCollaborator(noteId,collaborator) {
-        console.log(noteId)
-        console.log(collaborator)
+    removeCollaborator(collaborator,noteId) {
+        console.log("note id"+noteId)
+        console.log("collaborator"+collaborator)
         return axios.delete("http://localhost:8080/collaborator/removeCollab?noteId="+noteId+"&email="+collaborator, {
             headers: headers
         });

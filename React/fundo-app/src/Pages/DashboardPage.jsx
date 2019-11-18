@@ -9,6 +9,7 @@ export default class DashboardPage extends Component {
         this.state={
             open:false,
             view: false,
+            dashboardToPage : false
         }
     }
     handleSlide=()=>{
@@ -21,6 +22,11 @@ export default class DashboardPage extends Component {
             view:!this.state.view
         })
     }
+    getNote=(value)=>{
+this.setState({
+    dashboardToPage : value
+})
+    }
     render() {
         return (
             <div className="dashboard">
@@ -28,9 +34,9 @@ export default class DashboardPage extends Component {
                     <App slide={this.handleSlide} viewprop={this.handleView}></App>
                 </div>
                 <div className="create-display">
-                    <CreateNote></CreateNote>
+                    <CreateNote response={this.getNote}></CreateNote>
                     <div className="dashboard-displayNotes">
-                        <DisplayNotes menu={this.state.open} viewprop={this.state.view}></DisplayNotes>
+                        <DisplayNotes menu={this.state.open} viewprop={this.state.view} dashboard={this.state.dashboardToPage}></DisplayNotes>
                     </div>
                 </div>
 

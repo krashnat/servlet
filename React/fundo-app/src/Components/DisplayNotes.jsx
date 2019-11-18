@@ -157,7 +157,10 @@ class DisplayNotes extends Component {
         });
     }
 
-
+    handleReminderDelete(noteId) {
+        // console.log(noteId)
+        controller.removeReminder(noteId);
+    }
 
 
 
@@ -290,7 +293,11 @@ class DisplayNotes extends Component {
         }
 
     }
-
+    componentWillReceiveProps()
+    {
+        if(this.props.dashboard)
+        this.getNotes();
+    }
     render() {
 
         const { anchorEl } = this.state;
@@ -353,7 +360,7 @@ class DisplayNotes extends Component {
                                 {(note.reminder === undefined || note.reminder >= 0) ? null : <Chip
                                     icon={<AccessTimeIcon />}
                                     label={new Date(note.reminder).toString().slice(0, 15)}
-                                // onDelete={() => this.handleDelete(!this.props.searchStateProps ? keys._id : keys.noteId)}
+                                 onDelete={() => {this.handleReminderDelete(note.id)}}
                                 />}
                             </div>
                             <MuiThemeProvider theme={theme}>

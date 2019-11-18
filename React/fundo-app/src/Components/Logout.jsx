@@ -31,7 +31,7 @@ import Card from '@material-ui/core/Card';
 
     logout=() => {
         console.log("log out component")
-        localStorage.clear();
+        localStorage.removeItem('token')
         this.props.history.push("/login")
        
     }
