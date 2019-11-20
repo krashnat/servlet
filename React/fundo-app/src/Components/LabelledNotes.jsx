@@ -9,6 +9,8 @@ import IconButton from '@material-ui/core/IconButton';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import PaletteOutlinedIcon from '@material-ui/icons/PaletteOutlined';
 import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined';
+import ColourChange from '../Components/ColourChange';
+import Collaborator from '../Components/Collaborator';
 // import MoreVertIcon from '@material-ui/icons/MoreVert';
 // import Menu from '@material-ui/core/Menu';
 // import MenuItem from '@material-ui/core/MenuItem';
@@ -84,6 +86,15 @@ export default class LabelledNotes extends Component {
         })
     }
 
+
+
+    handleColourStatus=(colourStatus) =>{
+        if(colourStatus){
+            console.log(colourStatus);
+            this.getNotes();
+        }
+    }
+    
     render() {
 
 
@@ -122,21 +133,16 @@ export default class LabelledNotes extends Component {
                                                     </IconButton>
                                                 </Tooltip>
                                             </div>
-                                            <div>
-                                                <Tooltip title="collaborator">
-                                                    <IconButton aria-label="reminder">
-                                                        <PersonAddIcon />
-                                                    </IconButton>
-                                                </Tooltip>
-                                            </div>
-                                           
-                                            <div>
-                                                <Tooltip title="colour">
-                                                    <IconButton aria-label="colour">
-                                                        <PaletteOutlinedIcon />
-                                                    </IconButton>
-                                                </Tooltip>
-                                            </div>
+                                            <div className="botombuttons">
+
+                                        <Collaborator noteId={key.id}></Collaborator>
+
+                                    </div>
+                                    <div className="botombuttons">
+
+                                        <ColourChange note={key}  colourStatus={this.handleColourStatus} />
+
+                                    </div >
                                             <div>
                                                 <Tooltip title="Archive">
                                                     <IconButton aria-label="colour" >

@@ -23,7 +23,7 @@ export default class DashboardPage extends Component {
         })
     }
     getNote=(value)=>{
-this.setState({
+  this.setState({
     dashboardToPage : value
 })
     }

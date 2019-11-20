@@ -295,8 +295,9 @@ class DisplayNotes extends Component {
     }
     componentWillReceiveProps()
     {
-        if(this.props.dashboard)
+        if(this.props.dashboard){
         this.getNotes();
+        }
     }
     render() {
 

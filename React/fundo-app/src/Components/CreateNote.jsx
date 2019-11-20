@@ -67,7 +67,7 @@ export default class CreateNote extends Component {
     }
     onClose = () => {
 
-        if (this.state.title === '' || this.state.description === '') {
+        if (this.state.title === '' && this.state.description === '') {
             this.setState({
                 openNote: false
             }) 
@@ -88,7 +88,7 @@ export default class CreateNote extends Component {
                     description:'',
                     craeteNote : true
                 })
- this.props.response(this.state.craeteNote)
+                 this.props.response(this.state.craeteNote)
             }).catch((err) => {
                 console.log("in error");
                 console.log("error", err.response.data);
